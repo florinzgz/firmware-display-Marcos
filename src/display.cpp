@@ -75,8 +75,8 @@ void Display::update() {
     // Actualizar detección de gestos
     updateGestureDetection();
     
-    // Actualizar menú actual cada 50ms (20 FPS mínimo)
-    if (currentTime - lastUpdateTime >= 50 || needsRedraw) {
+    // Actualizar menú actual cada 33ms (30 FPS para máxima fluidez)
+    if (currentTime - lastUpdateTime >= 33 || needsRedraw) {
         lastUpdateTime = currentTime;
         
         switch (currentMenu) {
@@ -118,9 +118,9 @@ void Display::update() {
             currentMenu = MenuType::QUICK_MENU;
             needsRedraw = true;
         }
-        // Long press en esquina superior izquierda abre menú oculto
+        // Long press en área de batería (esquina superior derecha) abre menú oculto
         else if (lastGesture.type == GestureType::LONG_PRESS && 
-                 lastGesture.startX < 50 && lastGesture.startY < 50) {
+                 lastGesture.startX > screenWidth - 120 && lastGesture.startY < 30) {
             showHiddenMenu();
             needsRedraw = true;
         }

@@ -46,7 +46,7 @@ Sistema de visualización avanzado tipo HUD (Head-Up Display) con tema Mercedes 
 - Silueta del vehículo estilo Mercedes (vista desde arriba)
 - Logo Mercedes 3D en el techo (estrella de tres puntas)
 - 4 ruedas con indicadores individuales
-- Cardanes virtuales Ackermann (líneas conectando ruedas delanteras)
+- Enlaces de dirección (líneas conectando ruedas delanteras)
 - Volante central mostrando ángulo del encoder
 
 **Ruedas (FL, FR, RL, RR)**:
@@ -160,7 +160,7 @@ struct HUDData {
     GearPosition gear;   // P/D2/D1/N/R
     
     // Encoder
-    int16_t encoderAngle;// Ángulo volante (-90 a +90)
+    int16_t encoderAngle;// Ángulo volante (-350 a +350, 700° total)
 };
 ```
 
@@ -200,7 +200,7 @@ private:
                          const char* label, bool isFront);
     static void drawMercedesLogo(int16_t x, int16_t y, int16_t size);
     static void drawSteeringWheel(int16_t x, int16_t y, int16_t angle);
-    static void drawAckermannLinks();
+    static void drawSteeringLinks();
     static void drawSpeedometerHUD(float speed);
     static void drawTachometerHUD(float rpm);
     static void drawBatteryHUD(float voltage, float percent);
@@ -272,8 +272,9 @@ void updateWheelData() {
     // ...
     
     // Ángulos de dirección (solo ruedas delanteras)
-    hudData.wheelFL.angle = calculateAckermannAngle(hudData.encoderAngle, true);
-    hudData.wheelFR.angle = calculateAckermannAngle(hudData.encoderAngle, false);
+    // Los ángulos de las ruedas vienen del firmware con Ackermann calculado
+    hudData.wheelFL.angle = getWheelAngleFL();  // Desde firmware
+    hudData.wheelFR.angle = getWheelAngleFR();  // Desde firmware
 }
 ```
 
@@ -438,11 +439,11 @@ if (gesture == LONG_PRESS && x > 200 && x < 280 && y > 140 && y < 180) {
 ## 📝 Notas de Implementación
 
 1. **Logo Mercedes**: Dibujar con primitivas (líneas, triángulos) para estrella 3D
-2. **Cardanes Ackermann**: Líneas desde volante a ruedas delanteras con ángulo calculado
+2. **Enlaces de Dirección**: Líneas desde volante a ruedas delanteras (ángulos desde firmware)
 3. **Rotación ruedas**: Indicador visual de dirección solo en FL/FR
 4. **INA226**: Polling cada 100ms, cache de valores para evitar lecturas I2C excesivas
 5. **Temperatura**: Sensores dedicados o estimación desde corriente/tiempo
-6. **Encoder**: Filtro de ruido, mapeo -90° a +90°
+6. **Encoder**: Rango completo -350° a +350° (700° giro total)
 7. **Pedal**: ADC con oversampling para suavizado
 
 ## 🚀 Estado de Implementación
@@ -453,7 +454,7 @@ if (gesture == LONG_PRESS && x > 200 && x < 280 && y > 140 && y < 180) {
 - [ ] Logo Mercedes 3D
 - [ ] 4 ruedas con datos individuales
 - [ ] Volante con encoder
-- [ ] Cardanes Ackermann
+- [ ] Enlaces de dirección
 - [ ] Velocímetro HUD
 - [ ] Tacómetro HUD
 - [ ] Batería HUD

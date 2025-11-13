@@ -46,7 +46,7 @@ struct HUDData {
     GearPosition gear;        // P/D2/D1/N/R
     
     // Control
-    int16_t encoderAngle;     // Ángulo volante (-90 a +90 grados)
+    int16_t encoderAngle;     // Ángulo volante (-350 a +350 grados)
 };
 
 /**
@@ -140,15 +140,15 @@ private:
     /**
      * @brief Dibuja el volante con indicación de ángulo
      * @param x, y Centro del volante
-     * @param angle Ángulo del encoder (-90 a +90)
+     * @param angle Ángulo del encoder (-350 a +350)
      */
     static void drawSteeringWheel(int16_t x, int16_t y, int16_t angle);
     
     /**
-     * @brief Dibuja los cardanes virtuales Ackermann
-     * Conecta volante con ruedas delanteras
+     * @brief Dibuja los cardanes virtuales de dirección
+     * Conecta volante con ruedas delanteras (geometría desde firmware)
      */
-    static void drawAckermannLinks();
+    static void drawSteeringLinks();
     
     /**
      * @brief Dibuja velocímetro estilo HUD
@@ -199,14 +199,6 @@ private:
     static void drawCircularGauge(int16_t x, int16_t y, int16_t radius,
                                   float value, float maxValue,
                                   const char* label, uint16_t needleColor);
-    
-    /**
-     * @brief Calcula ángulo Ackermann para una rueda
-     * @param encoderAngle Ángulo del encoder central
-     * @param isLeft true si es rueda izquierda
-     * @return Ángulo de la rueda en grados
-     */
-    static int16_t calculateAckermannAngle(int16_t encoderAngle, bool isLeft);
     
     /**
      * @brief Verifica si un valor cambió significativamente

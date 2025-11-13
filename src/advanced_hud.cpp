@@ -42,8 +42,8 @@ void AdvancedHUD::init() {
 void AdvancedHUD::update() {
     unsigned long currentTime = millis();
     
-    // Actualizar a 20 FPS
-    if (currentTime - lastUpdateTime < 50 && !needsFullRedraw) {
+    // Actualizar a 30 FPS para máxima fluidez sin cortes
+    if (currentTime - lastUpdateTime < 33 && !needsFullRedraw) {
         return;
     }
     
@@ -162,8 +162,8 @@ void AdvancedHUD::drawTopDownCar() {
     // Volante central con ángulo
     drawSteeringWheel(baseX + 120, baseY + 140, hudData.encoderAngle);
     
-    // Cardanes Ackermann
-    drawAckermannLinks();
+    // Conexiones de dirección
+    drawSteeringLinks();
     
     // Ruedas con datos individuales
     // FL (Front Left) - Superior izquierda
@@ -263,6 +263,7 @@ void AdvancedHUD::drawMercedesLogo(int16_t x, int16_t y, int16_t size) {
 
 /**
  * @brief Dibuja el volante con indicación de ángulo
+ * El volante puede girar ±350 grados (700° total)
  */
 void AdvancedHUD::drawSteeringWheel(int16_t x, int16_t y, int16_t angle) {
     int16_t radius = 20;
@@ -271,7 +272,8 @@ void AdvancedHUD::drawSteeringWheel(int16_t x, int16_t y, int16_t angle) {
     tft->drawCircle(x, y, radius, COLOR_HUD_ACCENT);
     tft->drawCircle(x, y, radius - 1, COLOR_HUD_ACCENT);
     
-    // Línea indicadora de ángulo
+    // Línea indicadora de ángulo (normalizar a 0-360° para visualización)
+    // El ángulo puede ser hasta ±350°, mapeamos a radianes directamente
     float rad = angle * DEG_TO_RAD;
     int16_t x1 = x;
     int16_t y1 = y;
@@ -293,9 +295,11 @@ void AdvancedHUD::drawSteeringWheel(int16_t x, int16_t y, int16_t angle) {
 }
 
 /**
- * @brief Dibuja los cardanes virtuales Ackermann
+ * @brief Dibuja los enlaces de dirección
+ * Los ángulos de las ruedas FL y FR vienen directamente del firmware
+ * con la geometría Ackermann ya calculada
  */
-void AdvancedHUD::drawAckermannLinks() {
+void AdvancedHUD::drawSteeringLinks() {
     // Desde volante a ruedas delanteras
     int16_t wheelCenterX = 20 + 120;  // Centro del volante
     int16_t wheelCenterY = 40 + 140;
@@ -528,26 +532,6 @@ void AdvancedHUD::drawPedalBar(int8_t position) {
     tft->setTextColor(COLOR_TEXT);
     tft->setCursor(barX + barW + 5, barY + 3);
     tft->print(percentText);
-}
-
-/**
- * @brief Calcula ángulo Ackermann para una rueda
- */
-int16_t AdvancedHUD::calculateAckermannAngle(int16_t encoderAngle, bool isLeft) {
-    // Geometría Ackermann simplificada
-    // Rueda interior gira más que exterior
-    if (encoderAngle == 0) return 0;
-    
-    float factor = isLeft ? 1.1f : 0.9f;  // Interior gira 10% más
-    if (encoderAngle < 0) {
-        // Giro a la izquierda - FL es interior
-        factor = isLeft ? 1.1f : 0.9f;
-    } else {
-        // Giro a la derecha - FR es interior
-        factor = isLeft ? 0.9f : 1.1f;
-    }
-    
-    return (int16_t)(encoderAngle * factor);
 }
 
 /**

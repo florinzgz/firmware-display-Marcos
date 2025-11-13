@@ -142,7 +142,7 @@ Display::drawProgressBar(x, y, w, h, porcentaje, "Calibrando...");
 ## Sistema de Menús
 
 ### Menú Oculto
-**Activación**: Mantener presionado 3 segundos en esquina superior izquierda
+**Activación**: Mantener presionado 3 segundos en área de batería (esquina superior derecha)
 
 **Opciones**:
 - 🔧 Calibración (pedal, encoder, INA226)
@@ -209,7 +209,7 @@ El sistema detecta automáticamente los siguientes gestos:
 
 ### LONG PRESS (Mantener Presionado)
 - Mantener >3 segundos
-- Abre menú oculto desde esquina superior izquierda
+- Abre menú oculto desde área de batería (esquina superior derecha)
 - Funciones especiales
 
 ### SWIPE (Deslizar)

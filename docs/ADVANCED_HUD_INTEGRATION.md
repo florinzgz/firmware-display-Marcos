@@ -73,13 +73,11 @@ void leerSensores() {
     
     // Leer pedal y encoder
     hudData.pedalPosition = leerPedal();
-    hudData.encoderAngle = leerEncoder();
+    hudData.encoderAngle = leerEncoder();  // -350 a +350 grados
     
-    // Calcular ángulos Ackermann
-    hudData.wheelFL.angle = AdvancedHUD::calculateAckermannAngle(
-        hudData.encoderAngle, true);
-    hudData.wheelFR.angle = AdvancedHUD::calculateAckermannAngle(
-        hudData.encoderAngle, false);
+    // Los ángulos de las ruedas vienen del firmware con geometría Ackermann calculada
+    hudData.wheelFL.angle = getWheelAngleFL();  // Desde firmware/sistema de dirección
+    hudData.wheelFR.angle = getWheelAngleFR();  // Desde firmware/sistema de dirección
 }
 ```
 
@@ -247,11 +245,11 @@ void calibrarEncoder() {
 int16_t readSteeringEncoder() {
     int16_t raw = analogRead(ENCODER_PIN);
     
-    // Mapear a -90° / +90°
+    // Mapear a -350° / +350° (rango completo del volante)
     if (raw < encoderCenter) {
-        return map(raw, encoderLeft, encoderCenter, -90, 0);
+        return map(raw, encoderLeft, encoderCenter, -350, 0);
     } else {
-        return map(raw, encoderCenter, encoderRight, 0, 90);
+        return map(raw, encoderCenter, encoderRight, 0, 350);
     }
 }
 ```
