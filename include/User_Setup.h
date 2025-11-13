@@ -8,13 +8,13 @@
 #define TFT_WIDTH  320
 #define TFT_HEIGHT 480
 
-// ESP32-S3 SPI pins for TFT display
-#define TFT_MISO 13  // MISO (Master In Slave Out)
+// ESP32-S3 SPI pins for TFT display - Configuración coche eléctrico
+#define TFT_MISO 12  // MISO (Master In Slave Out)
 #define TFT_MOSI 11  // MOSI (Master Out Slave In)
-#define TFT_SCLK 12  // Clock
-#define TFT_CS   10  // Chip select
-#define TFT_DC   9   // Data/Command
-#define TFT_RST  14  // Reset (can use -1 if connected to ESP32 reset pin)
+#define TFT_SCLK 10  // Clock
+#define TFT_CS   8   // Chip select
+#define TFT_DC   13  // Data/Command
+#define TFT_RST  14  // Reset
 
 // SPI frequency
 #define SPI_FREQUENCY       27000000  // 27 MHz for ILI9488
