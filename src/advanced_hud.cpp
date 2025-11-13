@@ -145,8 +145,9 @@ uint16_t AdvancedHUD::getEffortColor(float effort) {
  * @brief Dibuja la vista cenital completa del coche
  */
 void AdvancedHUD::drawTopDownCar() {
-    // Área de la vista: X=20, Y=40, W=240, H=200
-    int16_t baseX = 20;
+    // Área de la vista centrada: X=170, Y=40, W=240, H=200
+    // Coche centrado en pantalla (480px width), con espacio para gauges a los lados
+    int16_t baseX = 170;
     int16_t baseY = 40;
     
     // Limpiar área
@@ -319,14 +320,16 @@ void AdvancedHUD::drawSteeringLinks() {
  * @brief Dibuja velocímetro estilo HUD
  */
 void AdvancedHUD::drawSpeedometerHUD(float speed) {
-    drawCircularGauge(400, 100, 60, speed, 30.0f, "km/h", COLOR_GAUGE_RED);
+    // Velocímetro a la IZQUIERDA del coche (X=320 para estar a la izquierda)
+    drawCircularGauge(80, 160, 60, speed, 30.0f, "km/h", COLOR_GAUGE_RED);
 }
 
 /**
  * @brief Dibuja tacómetro estilo HUD
  */
 void AdvancedHUD::drawTachometerHUD(float rpm) {
-    drawCircularGauge(400, 230, 60, rpm, 220.0f, "RPM", COLOR_GAUGE_GREEN);
+    // Tacómetro a la DERECHA del coche (X=400 para estar a la derecha)
+    drawCircularGauge(400, 160, 60, rpm, 220.0f, "RPM", COLOR_GAUGE_GREEN);
 }
 
 /**

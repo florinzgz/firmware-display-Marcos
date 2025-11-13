@@ -13,24 +13,24 @@ Sistema de visualización avanzado tipo HUD (Head-Up Display) con tema Mercedes 
 │ Temp: 23°C                                            Bat: 24.5V 95%        │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│        ┌──────────────────────────────────────────┐                         │
-│        │  Vista Cenital Coche Mercedes            │                         │
-│        │                                           │      ┌──────────┐      │
-│        │      ┌─────┐         ┌─────┐            │      │   RPM    │      │
-│        │      │ FL  │─────────│ FR  │            │      │   220    │      │
-│        │      │85%░░│  ╔═╗    │90%░░│            │      │  ┌───┐  │      │
-│        │      │35°C │  ║☆║    │32°C │            │      │ ╱     ╲ │      │
-│        │      └──┬──┘  ╚═╝    └──┬──┘            │      │╱   ●   ╲│      │
-│        │         │               │                │      └──────────┘      │
-│        │         │    Encoder    │                │                         │
-│        │         │      45°      │                │      ┌──────────┐      │
-│        │         │               │                │      │  km/h    │      │
-│        │      ┌──┴──┐         ┌──┴──┐            │      │   25     │      │
-│        │      │ RL  │─────────│ RR  │            │      │  ┌───┐  │      │
-│        │      │78%░░│         │82%░░│            │      │ ╱  ●  ╲ │      │
-│        │      │38°C │         │36°C │            │      │╱       ╲│      │
-│        │      └─────┘         └─────┘            │      └──────────┘      │
-│        └──────────────────────────────────────────┘                         │
+│  ┌──────────┐      ┌──────────────────────────────────────────┐  ┌──────────┐
+│  │  km/h    │      │  Vista Cenital Coche Mercedes            │  │   RPM    │
+│  │   25     │      │                                           │  │   220    │
+│  │  ┌───┐  │      │      ┌─────┐         ┌─────┐            │  │  ┌───┐  │
+│  │ ╱  ●  ╲ │      │      │ FL  │─────────│ FR  │            │  │ ╱     ╲ │
+│  │╱       ╲│      │      │85%░░│  ╔═╗    │90%░░│            │  │╱   ●   ╲│
+│  └──────────┘      │      │35°C │  ║☆║    │32°C │            │  └──────────┘
+│                    │      └──┬──┘  ╚═╝    └──┬──┘            │
+│                    │         │               │                │
+│                    │         │    Encoder    │                │
+│                    │         │      45°      │                │
+│                    │         │               │                │
+│                    │      ┌──┴──┐         ┌──┴──┐            │
+│                    │      │ RL  │─────────│ RR  │            │
+│                    │      │78%░░│         │82%░░│            │
+│                    │      │38°C │         │36°C │            │
+│                    │      └─────┘         └─────┘            │
+│                    └──────────────────────────────────────────┘
 │                                                                              │
 │        [ P | D2 | D1 | N | R ]         Pedal: ████████░░ 80%               │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -38,9 +38,9 @@ Sistema de visualización avanzado tipo HUD (Head-Up Display) con tema Mercedes 
 
 ### Elementos Principales
 
-#### 1. Vista Cenital del Coche (Centro-Izquierda, 240x200px)
+#### 1. Vista Cenital del Coche (Centrada, 240x200px)
 
-**Posición**: X=20, Y=40
+**Posición**: X=170, Y=40 (centrado en pantalla)
 
 **Componentes**:
 - Silueta del vehículo estilo Mercedes (vista desde arriba)
@@ -65,27 +65,29 @@ Naranja:  51-75% / 46-55°C (0xFD20)
 Rojo:     76-100%/ >55°C    (0xF800)
 ```
 
-#### 2. Velocímetro (Derecha Superior, 120x120px)
+#### 2. Velocímetro (Izquierda del Coche, R=60px)
 
-**Posición**: X=340, Y=40
+**Posición**: X=80, Y=160 (a la izquierda del coche centrado)
 
 **Características**:
 - Gauge circular 0-30 km/h
 - Aguja roja con sombra
 - Marcas cada 5 km/h
 - Valor digital grande en centro
-- Fondo oscuro con borde cyan
+- Fondo oscuro con borde rojo
+- Recorrido 270° (-135° a +135°)
 
-#### 3. Tacómetro/RPM (Derecha Centro, 120x120px)
+#### 3. Tacómetro/RPM (Derecha del Coche, R=60px)
 
-**Posición**: X=340, Y=170
+**Posición**: X=400, Y=160 (a la derecha del coche centrado)
 
 **Características**:
 - Gauge circular 0-220 RPM
 - Aguja verde
 - Zona roja >180 RPM
 - Valor digital en centro
-- Marcas cada 40 RPM
+- Marcas distribuidas
+- Recorrido 270° (-135° a +135°)
 
 #### 4. Batería (Superior Derecha)
 
