@@ -278,14 +278,12 @@ void Display::playBootAnimation() {
     int16_t barX = (screenWidth - barWidth) / 2;
     int16_t barY = screenHeight / 2 + 60;
     
-    for (int i = 0; i <= 100; i += 10) {
-        int16_t fillWidth = (barWidth * i) / 100;
-        tft.fillRect(barX, barY, fillWidth, barHeight, COLOR_ACCENT);
-        tft.drawRect(barX, barY, barWidth, barHeight, COLOR_TEXT);
-        delay(100);
-    }
+    // TODO: Convertir a máquina de estados con millis() para animación no bloqueante
+    // Por ahora: renderizado instantáneo de la barra completa
+    tft.fillRect(barX, barY, barWidth, barHeight, COLOR_ACCENT);
+    tft.drawRect(barX, barY, barWidth, barHeight, COLOR_TEXT);
     
-    delay(500);
+    // Espera eliminada - la animación boot debe ser instantánea o manejada por update()
     clear(COLOR_BG);
 }
 
@@ -293,12 +291,11 @@ void Display::playBootAnimation() {
  * @brief Animación de transición entre menús
  */
 void Display::playTransition(const char* type) {
-    // Fade simple
+    // TODO: Convertir a máquina de estados con millis() para fade no bloqueante
+    // Por ahora: transición instantánea
     if (strcmp(type, "fade") == 0) {
-        for (int i = 0; i < 5; i++) {
-            tft.fillRect(0, 0, screenWidth, screenHeight, COLOR_BG_DARK);
-            delay(20);
-        }
+        tft.fillRect(0, 0, screenWidth, screenHeight, COLOR_BG_DARK);
+        // Delay eliminado - transición instantánea hasta implementar fade con millis()
     }
 }
 

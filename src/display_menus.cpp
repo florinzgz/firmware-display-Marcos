@@ -381,7 +381,8 @@ void Display::showWiFiConfig() {
                 // Toast auto-desaparece, no necesita delay
                 showMenu(MenuType::WIFI_CONFIG);
             }
-            delay(200);
+            // TODO: Implementar máquina de estados para OTA con millis()
+            // Delay eliminado temporalmente - OTA debe ser no bloqueante
         }
     }
 }
