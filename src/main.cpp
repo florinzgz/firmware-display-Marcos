@@ -14,7 +14,7 @@ const unsigned long DATA_UPDATE_INTERVAL = 100;  // 100ms
 void setup() {
     // Inicializar comunicación serial
     Serial.begin(115200);
-    delay(1000);
+    // Eliminado delay(1000) - El serial se estabiliza automáticamente
     
     Serial.println("\n========================================");
     Serial.println("SISTEMA DE DISPLAY - COCHE ELECTRICO");
@@ -104,6 +104,5 @@ void loop() {
     // Actualizar display (procesa touch y redibuja si es necesario)
     Display::update();
     
-    // Pequeña pausa para no saturar CPU
-    delay(10);
+    // Sin delay - loop no bloqueante para máximo rendimiento
 }
