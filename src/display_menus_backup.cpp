@@ -268,10 +268,7 @@ void Display::showINA226Monitor() {
     // Botón volver
     if (drawButton(160, 270, 160, 40, "Volver")) {
         showMenu(MenuType::DASHBOARD);
-        // Debounce con millis()
-        static uint32_t lastMenuChangeMs_270 = 0;
-        if (millis() - lastMenuChangeMs_270 < 200) return;
-        lastMenuChangeMs_270 = millis();
+        delay(200);
     }
 }
 
@@ -323,10 +320,7 @@ void Display::showHardwareTest() {
     // Botón volver
     if (drawButton(160, 270, 160, 40, "Volver")) {
         showMenu(MenuType::DASHBOARD);
-        // Debounce con millis()
-        static uint32_t lastMenuChangeMs_322 = 0;
-        if (millis() - lastMenuChangeMs_322 < 200) return;
-        lastMenuChangeMs_322 = millis();
+        delay(200);
     }
 }
 
@@ -373,12 +367,11 @@ void Display::showWiFiConfig() {
                 
                 for (int p = 0; p <= 100; p += 5) {
                     drawProgressBar(90, 150, 300, 40, p, "Descargando firmware");
-                    // TODO: Convertir a máquina de estados con millis()
-                    // delay(100); - ELIMINADO
+                    delay(100);
                 }
                 
                 showToast("Actualizacion completada", 2000);
-                // Toast auto-desaparece, no necesita delay
+                delay(2000);
                 showMenu(MenuType::WIFI_CONFIG);
             }
             delay(200);
@@ -433,10 +426,7 @@ void Display::showStatistics() {
     // Botón volver
     if (drawButton(160, 270, 160, 40, "Volver")) {
         showMenu(MenuType::DASHBOARD);
-        // Debounce con millis()
-        static uint32_t lastMenuChangeMs_428 = 0;
-        if (millis() - lastMenuChangeMs_428 < 200) return;
-        lastMenuChangeMs_428 = millis();
+        delay(200);
     }
 }
 
@@ -507,14 +497,10 @@ void Display::showAlert(AlertLevel level, const char* msg) {
     while (true) {
         if (drawButton(btnX, btnY, btnWidth, btnHeight, "OK")) {
             needsRedraw = true;
-        // Debounce con millis()
-        static uint32_t lastMenuChangeMs_499 = 0;
-        if (millis() - lastMenuChangeMs_499 < 200) return;
-        lastMenuChangeMs_499 = millis();
+            delay(200);
             break;
         }
-        // TODO: Animar progreso con millis() en update()
-        // delay(50); - ELIMINADO
+        delay(50);
     }
 }
 
